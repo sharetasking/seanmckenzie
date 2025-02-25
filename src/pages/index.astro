@@ -4,10 +4,14 @@ import Gallery from "../components/home/gallery.astro";
 import Marketing from "../components/home/marketing.astro";
 import Layout from "../layouts/main.astro";
 import AudioVisualizer from "../components/audio-visualizer.astro";
+import Lightbox from "../components/lightbox.astro";
 ---
 
 <Layout title="Portfolio">
   <div class="relative mx-auto">
+    <!-- Lightbox Component -->
+    <Lightbox />
+    
     <!-- Table of Contents Sidebar (Notion-style) -->
     <div class="hidden lg:block fixed right-4 top-16 z-10">
       <div class="flex flex-col items-end">
@@ -73,7 +77,7 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
           <img 
             src="/assets/images/avatar.png" 
             alt="Andrew McKenzie" 
-            class="w-full max-w-md mx-auto rounded-full"
+            class="w-full max-w-md mx-auto rounded-full lightbox-image"
           />
         </div>
       </div>
@@ -656,32 +660,32 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
           <div class="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
             <!-- Google -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/google.svg" alt="Google" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/google.svg" alt="Google" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
             
             <!-- Facebook -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/facebook.svg" alt="Facebook" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/facebook.svg" alt="Facebook" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
             
             <!-- TikTok -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/tiktok.svg" alt="TikTok" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/tiktok.svg" alt="TikTok" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
             
             <!-- Twitter -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/twitter.svg" alt="Twitter" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/twitter.svg" alt="Twitter" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
             
             <!-- Instagram -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/instagram.svg" alt="Instagram" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/instagram.svg" alt="Instagram" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
             
             <!-- YouTube -->
             <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/youtube.svg" alt="YouTube" class="w-full h-full text-neutral-800 dark:text-white" />
+              <img src="/assets/icons/youtube.svg" alt="YouTube" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
             </div>
           </div>
         </div>
@@ -717,7 +721,7 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
               src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
               data-src="/assets/images/projects/tim-donahue.gif" 
               alt="TikTok Video Skills Showcase" 
-              class="w-full h-full object-contain gif-image"
+              class="w-full h-full object-contain gif-image lightbox-image"
               onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>
@@ -746,7 +750,7 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
               src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
               data-src="/assets/images/projects/graphify.gif" 
               alt="Web App Development Showcase" 
-              class="w-full h-full object-contain gif-image"
+              class="w-full h-full object-contain gif-image lightbox-image"
               onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>
@@ -775,7 +779,7 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
               src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
               data-src="/assets/images/projects/aipl-site-full.gif" 
               alt="Landing Page Creation Showcase" 
-              class="w-full h-full object-contain gif-image"
+              class="w-full h-full object-contain gif-image lightbox-image"
               onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>

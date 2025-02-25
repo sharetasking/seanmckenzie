@@ -1,0 +1,158 @@
+---
+// Lightbox component for displaying images in a fullscreen modal
+---
+
+<div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
+  <div class="relative w-full h-full flex items-center justify-center">
+    <!-- Close button -->
+    <button id="lightbox-close" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <!-- Navigation buttons -->
+    <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    
+    <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 z-10">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    
+    <!-- Image container -->
+    <div class="max-w-full max-h-full overflow-auto">
+      <img id="lightbox-img" src="" alt="Lightbox image" class="max-w-full max-h-[90vh] object-contain mx-auto" />
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    
+    if (!lightbox || !lightboxImg || !lightboxClose || !lightboxPrev || !lightboxNext) return;
+    
+    // Store all lightbox-enabled images
+    let lightboxImages = [];
+    let currentImageIndex = 0;
+    
+    // Initialize lightbox-enabled images
+    function initLightbox() {
+      // Find all images with the lightbox-image class
+      lightboxImages = Array.from(document.querySelectorAll('.lightbox-image'));
+      
+      // Add click event to each image
+      lightboxImages.forEach((img, index) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', (e) => {
+          e.preventDefault();
+          openLightbox(index);
+        });
+      });
+    }
+    
+    // Open lightbox with specific image
+    function openLightbox(index) {
+      if (index < 0 || index >= lightboxImages.length) return;
+      
+      currentImageIndex = index;
+      const img = lightboxImages[index];
+      
+      // Get the full-size image URL (either from data-full-src or src)
+      const fullSrc = img.dataset.fullSrc || img.src;
+      
+      // Set the image source
+      lightboxImg.src = fullSrc;
+      lightboxImg.alt = img.alt || 'Lightbox image';
+      
+      // Show the lightbox
+      lightbox.classList.remove('hidden');
+      setTimeout(() => {
+        lightbox.classList.add('opacity-100');
+        lightbox.classList.remove('opacity-0');
+      }, 10);
+      
+      // Disable scrolling on the body
+      document.body.style.overflow = 'hidden';
+      
+      // Update navigation buttons visibility
+      updateNavButtons();
+    }
+    
+    // Close the lightbox
+    function closeLightbox() {
+      lightbox.classList.remove('opacity-100');
+      lightbox.classList.add('opacity-0');
+      
+      setTimeout(() => {
+        lightbox.classList.add('hidden');
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+      }, 300);
+    }
+    
+    // Navigate to previous image
+    function prevImage() {
+      if (currentImageIndex > 0) {
+        openLightbox(currentImageIndex - 1);
+      }
+    }
+    
+    // Navigate to next image
+    function nextImage() {
+      if (currentImageIndex < lightboxImages.length - 1) {
+        openLightbox(currentImageIndex + 1);
+      }
+    }
+    
+    // Update navigation buttons visibility
+    function updateNavButtons() {
+      lightboxPrev.style.visibility = currentImageIndex > 0 ? 'visible' : 'hidden';
+      lightboxNext.style.visibility = currentImageIndex < lightboxImages.length - 1 ? 'visible' : 'hidden';
+    }
+    
+    // Event listeners
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', prevImage);
+    lightboxNext.addEventListener('click', nextImage);
+    
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        prevImage();
+      } else if (e.key === 'ArrowRight') {
+        nextImage();
+      }
+    });
+    
+    // Initialize lightbox
+    initLightbox();
+    
+    // Re-initialize when new images might be added to the DOM
+    document.addEventListener('astro:page-load', initLightbox);
+    
+    // Expose the initLightbox function globally so it can be called when new images are added
+    window.initLightbox = initLightbox;
+  });
+</script> 

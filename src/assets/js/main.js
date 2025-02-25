@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	// Initialize lazy loading for GIFs
 	initLazyLoadGifs();
+	
+	// Initialize lightbox if the function exists
+	if (typeof window.initLightbox === 'function') {
+		window.initLightbox();
+	}
 });
 
 // Function to initialize lazy loading for GIFs using Intersection Observer
