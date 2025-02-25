@@ -12,6 +12,28 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 
+    <!-- Preload large GIFs -->
+    <link rel="preload" as="image" href="/assets/images/projects/tim-donahue.gif" fetchpriority="high" />
+    <link rel="preload" as="image" href="/assets/images/projects/graphify.gif" fetchpriority="high" />
+    <link rel="preload" as="image" href="/assets/images/projects/aipl-site-full.gif" fetchpriority="high" />
+
+    <!-- Early GIF preloading script -->
+    <script is:inline>
+      // Start preloading GIFs as early as possible
+      (function() {
+        const gifsToPreload = [
+          '/assets/images/projects/tim-donahue.gif',
+          '/assets/images/projects/graphify.gif',
+          '/assets/images/projects/aipl-site-full.gif'
+        ];
+        
+        gifsToPreload.forEach(gifUrl => {
+          const img = new Image();
+          img.src = gifUrl;
+        });
+      })();
+    </script>
+
     <!-- Theme initialization script -->
     <script is:inline>
       // Check for saved theme preference or use system preference

@@ -707,10 +707,18 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">TikTok Video Skills</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
+              <div class="animate-pulse flex flex-col items-center">
+                <div class="w-12 h-12 border-4 border-neutral-300 dark:border-neutral-600 border-t-blue-500 rounded-full animate-spin mb-3"></div>
+                <p class="text-neutral-500 dark:text-neutral-400 text-sm">Loading GIF...</p>
+              </div>
+            </div>
             <img 
-              src="/assets/images/projects/tim-donahue.gif" 
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
+              data-src="/assets/images/projects/tim-donahue.gif" 
               alt="TikTok Video Skills Showcase" 
-              class="w-full h-full object-contain"
+              class="w-full h-full object-contain gif-image"
+              onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>
           <div class="p-6">
@@ -728,10 +736,18 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Web App Development</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
+              <div class="animate-pulse flex flex-col items-center">
+                <div class="w-12 h-12 border-4 border-neutral-300 dark:border-neutral-600 border-t-blue-500 rounded-full animate-spin mb-3"></div>
+                <p class="text-neutral-500 dark:text-neutral-400 text-sm">Loading GIF...</p>
+              </div>
+            </div>
             <img 
-              src="/assets/images/projects/graphify.gif" 
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
+              data-src="/assets/images/projects/graphify.gif" 
               alt="Web App Development Showcase" 
-              class="w-full h-full object-contain"
+              class="w-full h-full object-contain gif-image"
+              onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>
           <div class="p-6">
@@ -749,10 +765,18 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Landing Page Creation</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
+              <div class="animate-pulse flex flex-col items-center">
+                <div class="w-12 h-12 border-4 border-neutral-300 dark:border-neutral-600 border-t-blue-500 rounded-full animate-spin mb-3"></div>
+                <p class="text-neutral-500 dark:text-neutral-400 text-sm">Loading GIF...</p>
+              </div>
+            </div>
             <img 
-              src="/assets/images/projects/aipl-site-full.gif" 
+              src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%209'%2F%3E"
+              data-src="/assets/images/projects/aipl-site-full.gif" 
               alt="Landing Page Creation Showcase" 
-              class="w-full h-full object-contain"
+              class="w-full h-full object-contain gif-image"
+              onload="if(this.src !== this.dataset.src) return; this.parentElement.querySelector('.gif-loading-placeholder').style.display='none';"
             />
           </div>
           <div class="p-6">
