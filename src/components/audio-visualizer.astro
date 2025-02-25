@@ -66,19 +66,19 @@ const {
   </div>
   
   <!-- Hidden audio element -->
-  <audio id="audioElement" src={audioSrc} preload="metadata"></audio>
+  <audio id="audioElement" src={audioSrc} preload="metadata" crossorigin="anonymous"></audio>
 </div>
 
-<script>
+<script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const audioElement = document.getElementById('audioElement') as HTMLAudioElement;
+    const audioElement = document.getElementById('audioElement');
     const playPauseBtn = document.getElementById('playPauseBtn');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
     const progressBar = document.getElementById('progressBar');
     const currentTimeEl = document.getElementById('currentTime');
     const durationEl = document.getElementById('duration');
-    const canvas = document.getElementById('visualizer') as HTMLCanvasElement;
+    const canvas = document.getElementById('visualizer');
     const volumeBtn = document.getElementById('volumeBtn');
     
     if (!audioElement || !playPauseBtn || !playIcon || !pauseIcon || !progressBar || 
@@ -88,11 +88,12 @@ const {
     }
     
     // Set up audio context and analyzer
-    let audioContext: AudioContext;
-    let analyser: AnalyserNode;
-    let source: MediaElementAudioSourceNode;
-    let animationId: number;
+    let audioContext;
+    let analyser;
+    let source;
+    let animationId;
     let isPlaying = false;
+    let audioInitialized = false;
     
     // Canvas setup
     const ctx = canvas.getContext('2d');
@@ -115,21 +116,36 @@ const {
     
     // Initialize audio context and analyzer
     function initAudio() {
-      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      analyser = audioContext.createAnalyser();
-      source = audioContext.createMediaElementSource(audioElement);
-      
-      // Connect the audio nodes
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-      
-      // Set up analyzer
-      analyser.fftSize = 256;
-      analyser.smoothingTimeConstant = 0.8;
+      try {
+        // Check if AudioContext is available
+        if (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          audioContext = new AudioContextClass();
+          analyser = audioContext.createAnalyser();
+          
+          // Create source only when audio element is ready
+          source = audioContext.createMediaElementSource(audioElement);
+          
+          // Connect the audio nodes
+          source.connect(analyser);
+          analyser.connect(audioContext.destination);
+          
+          // Set up analyzer
+          analyser.fftSize = 256;
+          analyser.smoothingTimeConstant = 0.8;
+          
+          audioInitialized = true;
+          console.log('Audio context initialized successfully');
+        } else {
+          console.error('Web Audio API is not supported in this browser');
+        }
+      } catch (error) {
+        console.error('Error initializing audio context:', error);
+      }
     }
     
     // Format time in MM:SS
-    function formatTime(seconds: number) {
+    function formatTime(seconds) {
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
@@ -211,27 +227,52 @@ const {
     
     // Toggle play/pause
     function togglePlay() {
-      if (!audioContext) {
-        initAudio();
-      }
-      
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
-      
-      if (audioElement.paused) {
-        audioElement.play();
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-        isPlaying = true;
-        animationId = requestAnimationFrame(drawVisualizer);
-      } else {
-        audioElement.pause();
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-        isPlaying = false;
-        cancelAnimationFrame(animationId);
-        drawVisualizer(); // Draw static visualizer
+      try {
+        // Initialize audio on first play
+        if (!audioInitialized) {
+          initAudio();
+        }
+        
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+        
+        if (audioElement.paused) {
+          // Play with a promise to handle autoplay restrictions
+          const playPromise = audioElement.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              // Playback started successfully
+              playIcon.classList.add('hidden');
+              pauseIcon.classList.remove('hidden');
+              isPlaying = true;
+              animationId = requestAnimationFrame(drawVisualizer);
+              console.log('Audio playback started successfully');
+            }).catch(error => {
+              // Autoplay was prevented
+              console.error('Autoplay prevented:', error);
+              // Reset UI
+              playIcon.classList.remove('hidden');
+              pauseIcon.classList.add('hidden');
+              isPlaying = false;
+              
+              // Show a message to the user
+              alert('Please interact with the page first to enable audio playback.');
+            });
+          }
+        } else {
+          audioElement.pause();
+          playIcon.classList.remove('hidden');
+          pauseIcon.classList.add('hidden');
+          isPlaying = false;
+          if (animationId) {
+            cancelAnimationFrame(animationId);
+          }
+          drawVisualizer(); // Draw static visualizer
+        }
+      } catch (error) {
+        console.error('Error toggling play/pause:', error);
       }
     }
     
@@ -243,16 +284,24 @@ const {
         '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>';
     }
     
+    // Draw initial static visualizer
+    drawVisualizer();
+    
     // Event listeners
     playPauseBtn.addEventListener('click', togglePlay);
     volumeBtn.addEventListener('click', toggleMute);
     
     audioElement.addEventListener('timeupdate', updateProgress);
+    
+    // Handle metadata loaded
     audioElement.addEventListener('loadedmetadata', () => {
       durationEl.textContent = formatTime(audioElement.duration);
     });
     
-    // Draw initial static visualizer
-    drawVisualizer();
+    // Handle audio errors
+    audioElement.addEventListener('error', (e) => {
+      console.error('Audio error:', e);
+      alert('There was an error loading the audio file. Please try again later.');
+    });
   });
 </script> 
