@@ -77,62 +77,89 @@
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
+<script is:inline>
+  // Execute immediately when the script loads
+  (function() {
     const lightBtn = document.getElementById('light-theme');
     const darkBtn = document.getElementById('dark-theme');
     const systemBtn = document.getElementById('system-theme');
     const html = document.documentElement;
     
     // Function to update active button state
-    const updateActiveButton = (activeBtn: HTMLElement) => {
+    const updateActiveButton = (activeBtn) => {
       [lightBtn, darkBtn, systemBtn].forEach(btn => {
-        btn?.classList.remove('active');
+        if (btn) btn.classList.remove('active');
       });
-      activeBtn.classList.add('active');
+      if (activeBtn) activeBtn.classList.add('active');
     };
     
     // Function to set theme
-    const setTheme = (theme: string) => {
+    const setTheme = (theme) => {
       if (theme === 'light') {
         html.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        updateActiveButton(lightBtn as HTMLElement);
+        // Also update the old theme system
+        localStorage.setItem('dark_mode', 'false');
+        updateActiveButton(lightBtn);
       } else if (theme === 'dark') {
         html.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        updateActiveButton(darkBtn as HTMLElement);
+        // Also update the old theme system
+        localStorage.setItem('dark_mode', 'true');
+        updateActiveButton(darkBtn);
       } else if (theme === 'system') {
         localStorage.setItem('theme', 'system');
-        updateActiveButton(systemBtn as HTMLElement);
+        updateActiveButton(systemBtn);
         
         // Check system preference
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           html.classList.add('dark');
+          // Also update the old theme system
+          localStorage.setItem('dark_mode', 'true');
         } else {
           html.classList.remove('dark');
+          // Also update the old theme system
+          localStorage.setItem('dark_mode', 'false');
         }
       }
     };
     
     // Initialize theme based on localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
+    const initTheme = () => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      setTheme(savedTheme);
+    };
     
-    // Event listeners for theme buttons
-    lightBtn.addEventListener('click', () => setTheme('light'));
-    darkBtn.addEventListener('click', () => setTheme('dark'));
-    systemBtn.addEventListener('click', () => setTheme('system'));
-    
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (localStorage.getItem('theme') === 'system') {
-        if (e.matches) {
-          html.classList.add('dark');
-        } else {
-          html.classList.remove('dark');
-        }
+    // Set up event listeners once DOM is fully loaded
+    const setupListeners = () => {
+      if (lightBtn) lightBtn.addEventListener('click', () => setTheme('light'));
+      if (darkBtn) darkBtn.addEventListener('click', () => setTheme('dark'));
+      if (systemBtn) systemBtn.addEventListener('click', () => setTheme('system'));
+      
+      // Listen for system theme changes
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          if (localStorage.getItem('theme') === 'system') {
+            if (e.matches) {
+              html.classList.add('dark');
+              localStorage.setItem('dark_mode', 'true');
+            } else {
+              html.classList.remove('dark');
+              localStorage.setItem('dark_mode', 'false');
+            }
+          }
+        });
       }
-    });
-  });
+    };
+    
+    // Initialize immediately
+    initTheme();
+    
+    // Set up event listeners when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupListeners);
+    } else {
+      setupListeners();
+    }
+  })();
 </script> 
