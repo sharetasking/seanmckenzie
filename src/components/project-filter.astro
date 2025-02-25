@@ -25,7 +25,7 @@ const { allTags, target = "default" } = Astro.props;
   </div>
 </div>
 
-<script define:vars={{ target }}>
+<script is:inline define:vars={{ target }}>
   // Get all checkboxes for this specific target
   const filterCheckboxes = document.querySelectorAll(`input[name="filter-${target}"]`);
   // Get all projects for this specific target
