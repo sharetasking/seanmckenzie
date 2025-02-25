@@ -1,0 +1,124 @@
+---
+// Minimal Theme Toggle Component
+---
+
+<button id="minimal-theme-toggle" class="minimal-theme-toggle" aria-label="Toggle dark mode">
+  <div class="icon-container">
+    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </div>
+</button>
+
+<style>
+  .minimal-theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .minimal-theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  :global(.dark) .minimal-theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .icon-container {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .sun-icon, .moon-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+    color: #111827;
+  }
+  
+  .moon-icon {
+    opacity: 0;
+    transform: rotate(90deg);
+    color: #f9fafb;
+  }
+  
+  :global(.dark) .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  
+  :global(.dark) .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('minimal-theme-toggle');
+    const html = document.documentElement;
+    
+    // Function to set theme
+    function setTheme(isDark) {
+      if (isDark) {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setTheme(true);
+    }
+    
+    // Toggle theme on click
+    if (themeToggle) {
+      themeToggle.addEventListener('click', function() {
+        const isDark = html.classList.contains('dark');
+        setTheme(!isDark);
+      });
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (localStorage.getItem('theme') === null) {
+        setTheme(e.matches);
+      }
+    });
+  });
+</script> 

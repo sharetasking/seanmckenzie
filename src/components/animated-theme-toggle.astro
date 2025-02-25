@@ -1,0 +1,140 @@
+---
+// Animated Theme Toggle Component
+---
+
+<button 
+  id="theme-toggle" 
+  class="theme-toggle-btn"
+  aria-label="Toggle dark mode"
+  title="Toggle dark mode"
+>
+  <div class="sun-moon-container">
+    <!-- Sun Icon -->
+    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    
+    <!-- Moon Icon -->
+    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </div>
+</button>
+
+<style>
+  .theme-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: white;
+    color: #111827;
+    //border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .theme-toggle-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .theme-toggle-btn:active {
+    transform: translateY(0);
+  }
+  
+  :global(.dark) .theme-toggle-btn {
+    background-color: #1f2937;
+    color: #f9fafb;
+    border-color: #374151;
+  }
+  
+  .sun-moon-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .sun, .moon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease;
+  }
+  
+  /* Light mode (default) */
+  .sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+  
+  .moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+  }
+  
+  /* Dark mode */
+  :global(.dark) .sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+  }
+  
+  :global(.dark) .moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+  
+  /* Add a subtle pulse animation */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .theme-toggle-btn:hover .sun-moon-container {
+    animation: pulse 1s infinite;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    
+    // Function to toggle theme
+    function toggleTheme() {
+      if (html.classList.contains('dark')) {
+        // Switch to light mode
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        // Switch to dark mode
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // Add click event listener
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+  });
+</script> 
