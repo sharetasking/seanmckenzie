@@ -1,0 +1,23 @@
+[
+	{
+		"dates": "Feb 2022 · Present",
+		"role": "Marketing Director",
+		"company": "Sharetasking, Houston, TX",
+		"description": "Oversaw a team of marketers and virtual assistants to create internal and client campaigns. Personally built and managed both eCommerce and service-based marketing projects. Developed an app for marketers to analyze Facebook paid ad campaigns.",
+		"logo": "/assets/images/experiences/sharetasking.ico"
+	},
+	{
+		"dates": "Dec 2013 · Feb 2022",
+		"role": "Full Stack Web Developer & Digital Marketing Specialist",
+		"company": "Freelancer, New York, NY",
+		"description": "Developed SEO websites for clients using PHP, MySQL, Javascript, and WordPress. Planned and developed complex internal and external marketing campaigns. Created dashboards to highlight important KPIs and make recommendations in real time.",
+		"logo": "/assets/images/experiences/freelancer.ico"
+	},
+	{
+		"dates": "Nov 2011 · Dec 2013",
+		"role": "Director of Sales & Marketing",
+		"company": "Linkup Media Group of Companies, New York, NY",
+		"description": "Built marketing systems to generate online and radio leads and their conversions. Managed CRMs and analyzed data to improve conversions. Increased daily sales from 14k to 72k at its peak.",
+		"logo": "/assets/images/experiences/linkup.ico"
+	}
+]

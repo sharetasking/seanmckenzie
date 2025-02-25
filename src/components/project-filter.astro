@@ -1,0 +1,128 @@
+---
+const { allTags, target = "default" } = Astro.props;
+---
+
+<div class="project-filter">
+  <h2 class="text-base font-semibold mb-4">FILTER</h2>
+  <div class="space-y-3">
+    {allTags.map((tag) => (
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          id={`filter-${target}-${tag}`}
+          name={`filter-${target}`}
+          value={tag}
+          class="w-4 h-4 text-neutral-800 dark:text-neutral-300 bg-neutral-100 border-neutral-300 rounded dark:bg-neutral-700 dark:border-neutral-600 focus:ring-0 focus:ring-offset-0 focus:outline-none"
+        />
+        <label
+          for={`filter-${target}-${tag}`}
+          class="ml-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer"
+        >
+          {tag}
+        </label>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script define:vars={{ target }}>
+  // Get all checkboxes for this specific target
+  const filterCheckboxes = document.querySelectorAll(`input[name="filter-${target}"]`);
+  // Get all projects for this specific target
+  const projects = document.querySelectorAll(`.project-item-${target}`);
+
+  // Function to filter projects
+  function filterProjects() {
+    // Get all checked filters
+    const checkedFilters = Array.from(filterCheckboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.value);
+
+    // If no filters are checked, show all projects
+    if (checkedFilters.length === 0) {
+      projects.forEach(project => {
+        project.style.display = 'block';
+      });
+      updateProjectCount(projects.length);
+      return;
+    }
+
+    // Hide all projects first
+    let visibleCount = 0;
+    projects.forEach(project => {
+      const projectTags = JSON.parse(project.dataset.tags || '[]');
+      
+      // Check if project has any of the selected tags
+      const hasTag = checkedFilters.some(filter => projectTags.includes(filter));
+      
+      if (hasTag) {
+        project.style.display = 'block';
+        visibleCount++;
+      } else {
+        project.style.display = 'none';
+      }
+    });
+
+    // Update project count
+    updateProjectCount(visibleCount);
+  }
+
+  // Function to update project count
+  function updateProjectCount(count) {
+    const countElement = document.getElementById(`project-count-${target}`);
+    if (countElement) {
+      countElement.textContent = `SHOWING ${count} OF ${projects.length} PROJECTS`;
+    }
+  }
+
+  // Add event listeners to checkboxes
+  filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', filterProjects);
+  });
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    .project-filter {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Custom checkbox styling */
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: #4b5563; /* Dark grey when checked */
+    border-color: #4b5563;
+  }
+
+  input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    top: 2px;
+  }
+
+  /* Dark mode styles */
+  :global(.dark) input[type="checkbox"]:checked {
+    background-color: #9ca3af; /* Lighter grey for dark mode */
+    border-color: #9ca3af;
+  }
+</style> 

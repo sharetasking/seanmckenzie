@@ -1,0 +1,138 @@
+<div class="theme-toggle">
+  <div class="flex items-center space-x-2 rounded-lg border border-neutral-200 dark:border-neutral-700 p-1 bg-white dark:bg-neutral-800 shadow-sm">
+    <button 
+      id="light-theme" 
+      class="theme-btn p-1.5 rounded" 
+      aria-label="Light theme"
+      title="Light theme"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="M4.93 4.93l1.41 1.41"></path>
+        <path d="M17.66 17.66l1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="M6.34 17.66l-1.41 1.41"></path>
+        <path d="M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+    </button>
+    <button 
+      id="dark-theme" 
+      class="theme-btn p-1.5 rounded active" 
+      aria-label="Dark theme"
+      title="Dark theme"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      </svg>
+    </button>
+    <button 
+      id="system-theme" 
+      class="theme-btn p-1.5 rounded" 
+      aria-label="System theme"
+      title="System theme"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-laptop">
+        <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    z-index: 20;
+  }
+  
+  .theme-btn {
+    color: #6b7280; /* text-neutral-500 */
+    transition: all 0.2s ease;
+  }
+  
+  .theme-btn:hover {
+    color: #111827; /* text-neutral-900 */
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  :global(.dark) .theme-btn {
+    color: #9ca3af; /* text-neutral-400 */
+  }
+  
+  :global(.dark) .theme-btn:hover {
+    color: #f9fafb; /* text-neutral-50 */
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .theme-btn.active {
+    color: #111827; /* text-neutral-900 */
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  :global(.dark) .theme-btn.active {
+    color: #f9fafb; /* text-neutral-50 */
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightBtn = document.getElementById('light-theme');
+    const darkBtn = document.getElementById('dark-theme');
+    const systemBtn = document.getElementById('system-theme');
+    const html = document.documentElement;
+    
+    // Function to update active button state
+    const updateActiveButton = (activeBtn) => {
+      [lightBtn, darkBtn, systemBtn].forEach(btn => {
+        btn.classList.remove('active');
+      });
+      activeBtn.classList.add('active');
+    };
+    
+    // Function to set theme
+    const setTheme = (theme) => {
+      if (theme === 'light') {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        updateActiveButton(lightBtn);
+      } else if (theme === 'dark') {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateActiveButton(darkBtn);
+      } else if (theme === 'system') {
+        localStorage.setItem('theme', 'system');
+        updateActiveButton(systemBtn);
+        
+        // Check system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          html.classList.add('dark');
+        } else {
+          html.classList.remove('dark');
+        }
+      }
+    };
+    
+    // Initialize theme based on localStorage or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    
+    // Event listeners for theme buttons
+    lightBtn.addEventListener('click', () => setTheme('light'));
+    darkBtn.addEventListener('click', () => setTheme('dark'));
+    systemBtn.addEventListener('click', () => setTheme('system'));
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (localStorage.getItem('theme') === 'system') {
+        if (e.matches) {
+          html.classList.add('dark');
+        } else {
+          html.classList.remove('dark');
+        }
+      }
+    });
+  });
+</script> 

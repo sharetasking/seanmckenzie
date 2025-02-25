@@ -1,0 +1,44 @@
+[
+	{
+		"name": "Facebook Ad Analytics App",
+		"description": "Developed an app for marketers to analyze Facebook paid ad campaigns, providing 40 different graphs and 100 data points to find trends and offer a 6-month plan for campaign success.",
+		"image": "/assets/images/projects/fb-analytics.png",
+		"url": "#",
+		"tags": ["Astro", "Javascript", "Typescript", "Tailwind", "SolidJs"]
+	},
+	{
+		"name": "Marketing KPI Dashboard",
+		"description": "Created real-time dashboards to highlight important KPIs and make data-driven recommendations for marketing campaigns.",
+		"image": "/assets/images/projects/kpi-dashboard.png",
+		"url": "#",
+		"tags": ["Svelte", "Sveltekit", "Typescript", "Tailwind"]
+	},
+	{
+		"name": "eCommerce Marketing System",
+		"description": "Built and managed eCommerce marketing projects with integrated SEO, PPC, and social media strategies.",
+		"image": "/assets/images/projects/ecommerce.png",
+		"url": "#",
+		"tags": ["Vue", "Javascript", "Tailwind"]
+	},
+	{
+		"name": "Service-Based Marketing Platform",
+		"description": "Developed marketing systems for service-based businesses to generate leads and track conversions.",
+		"image": "/assets/images/projects/service-marketing.png",
+		"url": "#",
+		"tags": ["React", "Javascript", "StyleX"]
+	},
+	{
+		"name": "CRM Integration & Analysis",
+		"description": "Managed CRMs and analyzed data to improve conversions for multiple client campaigns.",
+		"image": "/assets/images/projects/crm-analysis.png",
+		"url": "#",
+		"tags": ["Astro", "Javascript", "Tailwind"]
+	},
+	{
+		"name": "SEO Website Development",
+		"description": "Developed SEO-optimized websites for clients using PHP, MySQL, Javascript, and WordPress.",
+		"image": "/assets/images/projects/seo-website.png",
+		"url": "#",
+		"tags": ["React", "Javascript", "Tailwind"]
+	}
+]

@@ -1,0 +1,69 @@
+---
+import projects from "../../collections/projects.json";
+import Button from "../button.astro";
+import Project from "../project.astro";
+import ProjectFilter from "../project-filter.astro";
+
+// Extract all unique tags from projects
+const allTags = [...new Set(projects.flatMap(project => project.tags || []))].sort();
+---
+
+<section class="max-w-6xl mx-auto">
+  <h2
+    class="text-2xl font-bold leading-10 tracking-tight text-neutral-900 dark:text-neutral-100"
+  >
+    My Projects
+  </h2>
+  <p class="mb-6 text-base text-neutral-600 dark:text-neutral-400">
+    Here are some of my recent projects. I'm always working on something new, so
+    check back often!
+  </p>
+
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- Filter Sidebar -->
+    <div class="w-full md:w-64 flex-shrink-0">
+      <ProjectFilter allTags={allTags} target="home" />
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="flex-grow">
+      <div class="flex justify-between items-center mb-6">
+        <h2 id="project-count-home" class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+          SHOWING {projects.length} OF {projects.length} PROJECTS
+        </h2>
+      </div>
+
+      <div
+        class="grid items-stretch w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-7"
+      >
+        {
+          projects.slice(0, 4).map((project) => {
+            return (
+              <div class="project-item-home" data-tags={JSON.stringify(project.tags || [])}>
+                <Project
+                  name={project.name}
+                  description={project.description}
+                  image={project.image}
+                  url={project.url}
+                  tags={project.tags}
+                />
+              </div>
+            )
+          })
+        }
+      </div>
+
+      <div class="flex items-center justify-center w-full py-5 mt-4">
+        <Button text="View All My Projects" link="/projects" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    #project-count-home {
+      margin-top: -1rem;
+    }
+  }
+</style>

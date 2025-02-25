@@ -1,0 +1,85 @@
+---
+import experiences from "../collections/experiences.json";
+import AboutExperience from "../components/about-experience.astro";
+import PageHeading from "../components/page-heading.astro";
+import Layout from "../layouts/main.astro";
+---
+
+<Layout title="About Me">
+  <section class="relative z-20 max-w-2xl mx-auto my-12 px-7 lg:px-0">
+    <PageHeading
+      title="About Me"
+      description="Hello 👋 I'm a digital marketer from Houston, TX. I'm passionate about creating effective marketing campaigns and leveraging data analytics to drive results."
+    />
+
+    <img src="/assets/images/about.jpg" class="relative z-30 w-full my-10 rounded-xl" />
+
+    <h2 class="mb-2 text-2xl font-bold dark:text-neutral-200">Short Bio</h2>
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      Motivated and detail-oriented digital marketer with 12 years of experience in both search engine and social media marketing. Adept at handling complex campaigns to maximize ROI and increase conversions. Bilingual in English and Spanish.
+    </p>
+
+    <h2
+      class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200"
+    >
+      Experience
+    </h2>
+    <div class="px-5 py-10">
+      {
+        experiences.map((experience) => {
+          return (
+            <div class="pb-10 border-l border-gray-200 last:border-l-0 dark:border-neutral-700">
+              <AboutExperience
+                dates={experience.dates}
+                role={experience.role}
+                company={experience.company}
+                description={experience.description}
+                logo={experience.logo}
+              />
+            </div>
+          )
+        })
+      }
+    </div>
+
+    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Skills</h2>
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      <strong>Marketing Experience:</strong> Google, Youtube, Facebook, Instagram, TikTok, Email, SMS<br>
+      <strong>Techniques:</strong> A/B Testing, Retargeting, Content Marketing, Influencer Marketing, PPC, SEO<br>
+      <strong>Other Skills:</strong> Strong problem-solving and analytical skills, effective communication and team collaboration abilities, highly organized with excellent time management skills, experience in project management and client communication
+    </p>
+
+    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Education</h2>
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      <strong>Western Governors University</strong> - Bachelors of Science - Computer Science (2024)<br>
+      <strong>Farmingdale State College</strong> - Business Administration (2016)<br>
+      <strong>Coursework:</strong> Marketing, Data Analytics
+    </p>
+
+    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Certifications</h2>
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      <strong>Google Advanced Data Analytics</strong> (Sep 2024)<br>
+      Skills: Python, Project Planning, Tableau, Machine Learning, Statistics, Regression Analysis, Data Science<br><br>
+      <strong>Google UX/UI</strong> (Jan 2024)<br>
+      Skills: Wireframing, Figma
+    </p>
+
+    <h2 class="mt-5 mb-2 text-2xl font-bold lg:mt-10 sm:mt-6 dark:text-neutral-200">Let's Connect</h2>
+    <p
+      class="text-sm leading-6 text-gray-600 dark:text-neutral-400 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg"
+    >
+      If you want to discuss potential opportunities or have any questions, feel free to <a
+        href="mailto:seanmac90@gmail.com"
+        class="text-indigo-600 underline">send me an email</a
+      > or call me at <a href="tel:+16464507972" class="text-indigo-600 underline">(646) 450-7972</a>. I'll be sure to get back to you as soon as possible.
+    </p>
+  </section>
+</Layout>

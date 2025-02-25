@@ -1,0 +1,258 @@
+---
+interface Props {
+  audioSrc?: string;
+  title?: string;
+  artist?: string;
+}
+
+const { 
+  audioSrc = "/assets/audio/background-music.mp3", 
+  title = "Portfolio Background",
+  artist = "Andrew McKenzie"
+} = Astro.props;
+---
+
+<div class="audio-player-container my-10 w-full max-w-xl mx-auto">
+  <div class="bg-white dark:bg-neutral-900 rounded-xl p-6">
+    <div class="flex flex-col items-center">
+      <!-- Canvas for visualization -->
+      <div class="relative w-full aspect-square max-w-xs mx-auto mb-4">
+        <canvas id="visualizer" class="w-full h-full rounded-full bg-neutral-100 dark:bg-neutral-800"></canvas>
+        
+        <!-- Play button overlay -->
+        <button id="playPauseBtn" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-neutral-800 dark:bg-white rounded-full flex items-center justify-center shadow-lg">
+          <span id="playIcon" class="block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white dark:text-neutral-800">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </span>
+          <span id="pauseIcon" class="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white dark:text-neutral-800">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </span>
+        </button>
+      </div>
+      
+      <!-- Track info -->
+      <div class="text-center mb-4">
+        <h3 class="text-lg font-semibold text-neutral-800 dark:text-white">{title}</h3>
+        <p class="text-sm text-neutral-600 dark:text-neutral-400">{artist}</p>
+      </div>
+      
+      <!-- Progress bar -->
+      <div class="w-full mb-4">
+        <div class="relative h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+          <div id="progressBar" class="absolute h-full w-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+        </div>
+        <div class="flex justify-between text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+      
+      <!-- Controls -->
+      <div class="flex items-center justify-center space-x-4">
+        <button id="volumeBtn" class="p-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Hidden audio element -->
+  <audio id="audioElement" src={audioSrc} preload="metadata"></audio>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const audioElement = document.getElementById('audioElement') as HTMLAudioElement;
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const canvas = document.getElementById('visualizer') as HTMLCanvasElement;
+    const volumeBtn = document.getElementById('volumeBtn');
+    
+    if (!audioElement || !playPauseBtn || !playIcon || !pauseIcon || !progressBar || 
+        !currentTimeEl || !durationEl || !canvas || !volumeBtn) {
+      console.error('One or more elements not found');
+      return;
+    }
+    
+    // Set up audio context and analyzer
+    let audioContext: AudioContext;
+    let analyser: AnalyserNode;
+    let source: MediaElementAudioSourceNode;
+    let animationId: number;
+    let isPlaying = false;
+    
+    // Canvas setup
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      console.error('Could not get canvas context');
+      return;
+    }
+    
+    // Set canvas dimensions for high resolution
+    function setupCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    }
+    
+    setupCanvas();
+    window.addEventListener('resize', setupCanvas);
+    
+    // Initialize audio context and analyzer
+    function initAudio() {
+      audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      analyser = audioContext.createAnalyser();
+      source = audioContext.createMediaElementSource(audioElement);
+      
+      // Connect the audio nodes
+      source.connect(analyser);
+      analyser.connect(audioContext.destination);
+      
+      // Set up analyzer
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.8;
+    }
+    
+    // Format time in MM:SS
+    function formatTime(seconds: number) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+    
+    // Update progress bar and time display
+    function updateProgress() {
+      if (audioElement.duration) {
+        const progress = (audioElement.currentTime / audioElement.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        currentTimeEl.textContent = formatTime(audioElement.currentTime);
+        durationEl.textContent = formatTime(audioElement.duration);
+      }
+    }
+    
+    // Draw radial visualizer
+    function drawVisualizer() {
+      if (!analyser) return;
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
+      
+      // Get frequency data
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
+      
+      // Calculate center and radius
+      const width = canvas.width / window.devicePixelRatio;
+      const height = canvas.height / window.devicePixelRatio;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const radius = Math.min(centerX, centerY) - 10;
+      
+      // Draw background circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = isPlaying ? 'rgba(59, 130, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)';
+      ctx.fill();
+      
+      // Draw frequency bars in a circle
+      const barCount = bufferLength / 2;
+      const barWidth = (2 * Math.PI) / barCount;
+      
+      for (let i = 0; i < barCount; i++) {
+        const barHeight = dataArray[i] * 0.5;
+        const barHeightScaled = barHeight ? (barHeight / 255) * radius * 0.5 : 2;
+        
+        // Calculate start and end points for each bar
+        const angle = i * barWidth;
+        const startX = centerX + (radius - 5) * Math.cos(angle);
+        const startY = centerY + (radius - 5) * Math.sin(angle);
+        const endX = centerX + (radius - 5 - barHeightScaled) * Math.cos(angle);
+        const endY = centerY + (radius - 5 - barHeightScaled) * Math.sin(angle);
+        
+        // Draw the bar
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.lineWidth = 2;
+        
+        // Create gradient based on frequency
+        const hue = (i / barCount) * 240;
+        ctx.strokeStyle = isPlaying ? `hsl(${hue}, 80%, 60%)` : 'rgba(156, 163, 175, 0.6)';
+        ctx.stroke();
+      }
+      
+      // Draw center circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
+      ctx.fillStyle = isPlaying ? 'rgba(59, 130, 246, 0.3)' : 'rgba(156, 163, 175, 0.3)';
+      ctx.fill();
+      
+      // Continue animation
+      if (isPlaying) {
+        animationId = requestAnimationFrame(drawVisualizer);
+      }
+    }
+    
+    // Toggle play/pause
+    function togglePlay() {
+      if (!audioContext) {
+        initAudio();
+      }
+      
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      
+      if (audioElement.paused) {
+        audioElement.play();
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        isPlaying = true;
+        animationId = requestAnimationFrame(drawVisualizer);
+      } else {
+        audioElement.pause();
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        isPlaying = false;
+        cancelAnimationFrame(animationId);
+        drawVisualizer(); // Draw static visualizer
+      }
+    }
+    
+    // Toggle mute
+    function toggleMute() {
+      audioElement.muted = !audioElement.muted;
+      volumeBtn.innerHTML = audioElement.muted ? 
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>' :
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>';
+    }
+    
+    // Event listeners
+    playPauseBtn.addEventListener('click', togglePlay);
+    volumeBtn.addEventListener('click', toggleMute);
+    
+    audioElement.addEventListener('timeupdate', updateProgress);
+    audioElement.addEventListener('loadedmetadata', () => {
+      durationEl.textContent = formatTime(audioElement.duration);
+    });
+    
+    // Draw initial static visualizer
+    drawVisualizer();
+  });
+</script> 

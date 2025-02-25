@@ -1,0 +1,63 @@
+---
+import projects from "../collections/projects.json";
+import PageHeading from "../components/page-heading.astro";
+import Project from "../components/project.astro";
+import ProjectFilter from "../components/project-filter.astro";
+import Layout from "../layouts/main.astro";
+
+// Extract all unique tags from projects
+const allTags = [...new Set(projects.flatMap(project => project.tags || []))].sort();
+---
+
+<Layout title="My Projects">
+  <div class="max-w-[712px] mx-auto px-4 sm:px-6 mt-16">
+    <PageHeading
+      title="Projects"
+      description="Here are some of my recent projects. I'm always working on something new, so check back often!"
+    />
+
+    <div class="flex flex-col md:flex-row gap-8 mt-8">
+      <!-- Filter Sidebar -->
+      <div class="w-full md:w-56 flex-shrink-0">
+        <ProjectFilter allTags={allTags} target="projects" />
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="flex-grow">
+        <div class="flex justify-between items-center mb-6">
+          <h2 id="project-count-projects" class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+            SHOWING {projects.length} OF {projects.length} PROJECTS
+          </h2>
+        </div>
+
+        <div
+          class="grid items-stretch w-full grid-cols-1 gap-6 sm:grid-cols-2"
+        >
+          {
+            projects.map((project) => {
+              return (
+                <div class="project-item-projects" data-tags={JSON.stringify(project.tags || [])}>
+                  <Project
+                    name={project.name}
+                    description={project.description}
+                    image={project.image}
+                    url={project.url}
+                    tags={project.tags}
+                  />
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    #project-count-projects {
+      margin-top: 0.5rem;
+    }
+  }
+</style>
