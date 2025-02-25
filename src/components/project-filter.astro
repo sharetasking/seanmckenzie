@@ -5,7 +5,7 @@ const { allTags, target = "default" } = Astro.props;
 <div class="project-filter">
   <h2 class="text-base font-semibold mb-4">FILTER</h2>
   <div class="space-y-3">
-    {allTags.map((tag) => (
+    {allTags.map((tag: string) => (
       <div class="flex items-center">
         <input
           type="checkbox"

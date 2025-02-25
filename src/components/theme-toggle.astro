@@ -85,26 +85,26 @@
     const html = document.documentElement;
     
     // Function to update active button state
-    const updateActiveButton = (activeBtn) => {
+    const updateActiveButton = (activeBtn: HTMLElement) => {
       [lightBtn, darkBtn, systemBtn].forEach(btn => {
-        btn.classList.remove('active');
+        btn?.classList.remove('active');
       });
       activeBtn.classList.add('active');
     };
     
     // Function to set theme
-    const setTheme = (theme) => {
+    const setTheme = (theme: string) => {
       if (theme === 'light') {
         html.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        updateActiveButton(lightBtn);
+        updateActiveButton(lightBtn as HTMLElement);
       } else if (theme === 'dark') {
         html.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        updateActiveButton(darkBtn);
+        updateActiveButton(darkBtn as HTMLElement);
       } else if (theme === 'system') {
         localStorage.setItem('theme', 'system');
-        updateActiveButton(systemBtn);
+        updateActiveButton(systemBtn as HTMLElement);
         
         // Check system preference
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {

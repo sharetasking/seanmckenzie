@@ -7,7 +7,6 @@ import Separator from "../components/home/separator.astro";
 import Writings from "../components/home/writings.astro";
 import Layout from "../layouts/main.astro";
 import { Icon } from "astro-icon/components";
-import LogoGallery from "../components/home/logo-gallery.astro";
 import AudioVisualizer from "../components/audio-visualizer.astro";
 ---
 
@@ -842,7 +841,7 @@ import AudioVisualizer from "../components/audio-visualizer.astro";
     const skillsTabs = document.querySelectorAll('.skills-tab');
     const skillsContents = document.querySelectorAll('.skills-content');
     
-    function activateTab(tabId) {
+    function activateTab(tabId: string) {
       // Hide all content sections
       skillsContents.forEach(content => {
         content.classList.add('hidden');
