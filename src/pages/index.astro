@@ -876,6 +876,10 @@ import Lightbox from "../components/lightbox.astro";
     @apply bg-neutral-800 dark:bg-white w-6;
   }
   
+  .toc-link.active {
+    @apply text-neutral-800 dark:text-white;
+  }
+  
   .toc-link.active span:first-child {
     @apply opacity-100 text-neutral-800 dark:text-white;
   }
@@ -900,83 +904,73 @@ import Lightbox from "../components/lightbox.astro";
 </style>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('div[id]');
     const tocLinks = document.querySelectorAll('.toc-link');
-    const tocLabels = document.querySelectorAll('.toc-label');
     
-    // Add active class to show labels
-    const addActiveClass = (link) => {
-      // Remove active class from all links
-      tocLinks.forEach(l => {
-        l.classList.remove('active');
-        l.classList.remove('text-neutral-800');
-        l.classList.remove('dark:text-white');
-        l.classList.add('text-neutral-400');
-        l.classList.add('dark:text-neutral-400');
-      });
+    // Function to update active link
+    function updateActiveLink() {
+      let found = false;
       
-      // Add active class to current link
-      link.classList.add('active');
-      link.classList.add('text-neutral-800');
-      link.classList.add('dark:text-white');
-      link.classList.remove('text-neutral-400');
-      link.classList.remove('dark:text-neutral-400');
-      
-      // Show label for active link
-      const label = link.querySelector('.toc-label');
-      if (label) {
-        label.classList.remove('opacity-0');
-        label.classList.add('opacity-100');
-      }
-    };
-    
-    // Reset all labels except active one
-    const resetLabels = (activeLink) => {
-      tocLabels.forEach(label => {
-        if (!activeLink || !activeLink.contains(label)) {
-          label.classList.remove('opacity-100');
-          label.classList.add('opacity-0');
-        }
-      });
-    };
-    
-    // Highlight active section in TOC
-    const highlightActiveSection = () => {
-      let currentSection = '';
-      
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      // Check which section is in view
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const rect = section.getBoundingClientRect();
         
-        if (window.scrollY >= (sectionTop - 200)) {
-          currentSection = section.getAttribute('id');
-        }
-      });
-      
-      if (currentSection) {
-        const activeLink = document.querySelector(`.toc-link[href="#${currentSection}"]`);
-        if (activeLink) {
-          addActiveClass(activeLink);
-          resetLabels(activeLink);
+        // If the section is in the viewport (with some offset)
+        if (rect.top <= 150 && rect.bottom >= 150) {
+          const id = section.getAttribute('id');
+          const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+          
+          if (activeLink) {
+            // Remove active class from all links
+            tocLinks.forEach(function(link) {
+              link.classList.remove('active');
+              const label = link.querySelector('.toc-label');
+              if (label) {
+                label.classList.add('opacity-0');
+                label.classList.remove('opacity-100');
+              }
+            });
+            
+            // Add active class to current link
+            activeLink.classList.add('active');
+            const label = activeLink.querySelector('.toc-label');
+            if (label) {
+              label.classList.remove('opacity-0');
+              label.classList.add('opacity-100');
+            }
+            
+            found = true;
+            break;
+          }
         }
       }
-    };
+      
+      // If no section is in view, activate the first link
+      if (!found && sections.length > 0 && tocLinks.length > 0) {
+        const firstLink = tocLinks[0];
+        firstLink.classList.add('active');
+        const label = firstLink.querySelector('.toc-label');
+        if (label) {
+          label.classList.remove('opacity-0');
+          label.classList.add('opacity-100');
+        }
+      }
+    }
     
-    // Initial highlight
-    highlightActiveSection();
+    // Update on scroll
+    window.addEventListener('scroll', updateActiveLink);
     
-    // Highlight on scroll
-    window.addEventListener('scroll', highlightActiveSection);
+    // Initial update
+    updateActiveLink();
     
     // Handle click on TOC links
-    tocLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
+    tocLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
         // Let the default behavior happen (scroll to section)
         // But also update the active state
-        setTimeout(() => {
-          addActiveClass(link);
-          resetLabels(link);
-        }, 100);
+        setTimeout(updateActiveLink, 100);
       });
     });
   });
