@@ -24,32 +24,22 @@
   
   <div class="theme-options">
     <button class="theme-option" data-theme="light" aria-label="Light theme">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="5"></circle>
-        <line x1="12" y1="1" x2="12" y2="3"></line>
-        <line x1="12" y1="21" x2="12" y2="23"></line>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-        <line x1="1" y1="12" x2="3" y2="12"></line>
-        <line x1="21" y1="12" x2="23" y2="12"></line>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
       </svg>
       <span>Light</span>
     </button>
     
     <button class="theme-option" data-theme="dark" aria-label="Dark theme">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
       <span>Dark</span>
     </button>
     
     <button class="theme-option" data-theme="system" aria-label="System theme">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-        <line x1="8" y1="21" x2="16" y2="21"></line>
-        <line x1="12" y1="17" x2="12" y2="21"></line>
       </svg>
       <span>System</span>
     </button>
@@ -64,16 +54,14 @@
     z-index: 50;
     display: flex;
     align-items: center;
-    gap: 8px;
   }
   
   .theme-toggle-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
     background-color: white;
     color: #111827;
-    /* border: 1px solid #e5e7eb; */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -91,7 +79,6 @@
   :global(.dark) .theme-toggle-btn {
     background-color: #1f2937;
     color: #f9fafb;
-    /* border-color: #374151; */
   }
   
   .icon-container {
@@ -129,31 +116,25 @@
   
   .theme-options {
     display: flex;
-    position: absolute;
-    left: 24px;
-    height: 48px;
+    height: 40px;
     background-color: white;
-    /* border: 1px solid #e5e7eb; */
-    border-radius: 24px;
+    border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding-left: 32px;
-    padding-right: 8px;
+    margin-left: 8px;
     opacity: 0;
-    pointer-events: none;
-    transform: translateX(-8px);
+    transform: scaleX(0);
+    transform-origin: left;
     transition: all 0.3s ease;
-    z-index: 1;
+    overflow: hidden;
   }
   
   :global(.dark) .theme-options {
     background-color: #1f2937;
-    border-color: #374151;
   }
   
   .expandable-theme-toggle:hover .theme-options {
     opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
+    transform: scaleX(1);
   }
   
   .theme-option {
@@ -165,13 +146,14 @@
     border: none;
     cursor: pointer;
     color: #4b5563;
-    font-size: 14px;
+    font-size: 13px;
     transition: all 0.2s ease;
     white-space: nowrap;
   }
   
   .theme-option:hover {
     color: #111827;
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   :global(.dark) .theme-option {
@@ -180,42 +162,36 @@
   
   :global(.dark) .theme-option:hover {
     color: #f9fafb;
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   .theme-option.active {
     color: #111827;
     font-weight: 500;
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   :global(.dark) .theme-option.active {
     color: #f9fafb;
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   .theme-option svg {
-    margin-right: 8px;
-  }
-  
-  .theme-option span {
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-  
-  .theme-option:hover span {
-    transform: translateX(2px);
+    margin-right: 6px;
   }
   
   /* Responsive adjustments */
   @media (max-width: 640px) {
-    .theme-options {
-      padding-right: 4px;
-    }
-    
     .theme-option {
       padding: 0 8px;
     }
     
     .theme-option span {
-      font-size: 13px;
+      font-size: 12px;
+    }
+    
+    .theme-option svg {
+      margin-right: 4px;
     }
   }
 </style>
