@@ -28,8 +28,16 @@ import Lightbox from "../components/lightbox.astro";
             <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">My Skills</span>
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
+          <a href="#ai-audio" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
+            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">AI Audio</span>
+            <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
+          </a>
           <a href="#gallery" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
             <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">My Gallery</span>
+            <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
+          </a>
+          <a href="#campaigns" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
+            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Campaigns I've Managed</span>
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
           <a href="#tiktok-skills" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
@@ -42,10 +50,6 @@ import Lightbox from "../components/lightbox.astro";
           </a>
           <a href="#landing-page-skills" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
             <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Landing Pages I've Created</span>
-            <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
-          </a>
-          <a href="#campaigns" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
-            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Campaigns I've Managed</span>
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
           <a href="#contact" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
@@ -66,7 +70,7 @@ import Lightbox from "../components/lightbox.astro";
             Hello, I'm Andrew McKenzie.
           </h2>
           <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-            I specialize in building and leading
+            I specialize in building 
             <span class="font-semibold text-neutral-800 dark:text-neutral-200">high-impact marketing teams and campaigns</span>
             that drive revenue and brand growth.
           </p>
@@ -213,7 +217,6 @@ import Lightbox from "../components/lightbox.astro";
             <span class="flex items-center text-neutral-800 dark:text-white">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 3v18h18"></path>
-                <path d="M18.4 8.64 8.78 18.26"></path>
                 <path d="m10.5 8.64 3.14 3.14"></path>
                 <path d="m8.78 5.78 9.62 9.62"></path>
               </svg>
@@ -640,53 +643,16 @@ import Lightbox from "../components/lightbox.astro";
       <h1 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I create AI automations</h1>
       
       <!-- Audio Visualizer -->
-      <AudioVisualizer 
-        title="AI Conducts a Sales Call" 
-        artist="Andrew McKenzie"
-        audioSrc="/assets/audio/sample-call.wav"
-      />
+      <div id="ai-audio" class="mb-20 scroll-mt-20">
+        <AudioVisualizer 
+          title="AI Conducts a Sales Call" 
+          artist="Andrew McKenzie"
+          audioSrc="/assets/audio/sample-call.wav"
+        />
+      </div>
       
 
 
-
-      <!-- Brands I worked with Section -->
-      <div class=" my-48">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-6">I market on multiple digital platforms</h2>
-        
-        <div class="py-6 ">
-          <div class="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
-            <!-- Google -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/google.svg" alt="Google" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-            
-            <!-- Facebook -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/facebook.svg" alt="Facebook" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-            
-            <!-- TikTok -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/tiktok.svg" alt="TikTok" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-            
-            <!-- Twitter -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/twitter.svg" alt="Twitter" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-            
-            <!-- Instagram -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/instagram.svg" alt="Instagram" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-            
-            <!-- YouTube -->
-            <div class="w-16 h-10 flex items-center justify-center">
-              <img src="/assets/icons/youtube.svg" alt="YouTube" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
-            </div>
-          </div>
-        </div>
-      </div>
 
 
       <!-- Gallery Section -->
@@ -698,7 +664,7 @@ import Lightbox from "../components/lightbox.astro";
 
 
       <!-- Marketing Analytics Gallery Section -->
-      <div id="campaigns" class="mb-20 scroll-mt-20">
+      <div id="campaigns" class="mt-48 mb-20 scroll-mt-20">
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I build and manage campaigns with both small and large budgets</h2>
         <p class="text-neutral-600 dark:text-neutral-400 mb-8">
           Showcasing real-world marketing analytics dashboards and results from various campaigns I've managed.
@@ -792,9 +758,50 @@ import Lightbox from "../components/lightbox.astro";
         </div>
       </div>
 
+
+      <!-- Brands I worked with Section -->
+      <div class=" my-48">
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-6">...and I do it on multiple digital platforms</h2>
+        
+        <div class="py-6 ">
+          <div class="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
+            <!-- Google -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/google.svg" alt="Google" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+            
+            <!-- Facebook -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/facebook.svg" alt="Facebook" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+            
+            <!-- TikTok -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/tiktok.svg" alt="TikTok" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+            
+            <!-- Twitter -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/twitter.svg" alt="Twitter" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+            
+            <!-- Instagram -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/instagram.svg" alt="Instagram" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+            
+            <!-- YouTube -->
+            <div class="w-16 h-10 flex items-center justify-center">
+              <img src="/assets/icons/youtube.svg" alt="YouTube" class="w-full h-full text-neutral-800 dark:text-white lightbox-image" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- TikTok Skills Section -->
       <div id="tiktok-skills" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I create video slideshows for your TikTok ads</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I create video slideshows for your TikTok accounts</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
@@ -822,7 +829,7 @@ import Lightbox from "../components/lightbox.astro";
       </div>
 
       <!-- Web App Skills Section -->
-      <div id="webapp-skills" class="mb-20 scroll-mt-20">
+      <div id="webapp-skills" class="mt-48 mb-20 scroll-mt-20">
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I develop modern web apps that help you manage your business</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
@@ -851,7 +858,7 @@ import Lightbox from "../components/lightbox.astro";
       </div>
 
       <!-- Landing Page Skills Section -->
-      <div id="landing-page-skills" class="mb-20 scroll-mt-20">
+      <div id="landing-page-skills" class="mt-48 mb-20 scroll-mt-20">
         <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I get your landing pages and websites designed in a jiffy - and they convert!</h2>
         
         <!-- Sunovio Solar Landing Page -->
@@ -864,7 +871,7 @@ import Lightbox from "../components/lightbox.astro";
             />
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-neutral-800 dark:text-white mb-2">Sunovio Solar Company</h3>
+            <h3 class="text-xl font-bold text-neutral-800 dark:text-white mb-2">Sunovio - Solar Company</h3>
             <p class="text-neutral-600 dark:text-neutral-400">
               Designed and developed a landing page for Sunovio, a premier residential solar company offering electricity savings with no money down, flexible financing options, and professional installation services. The page highlights key benefits, installation process, and financing options to maximize conversions.
             </p>
@@ -889,7 +896,7 @@ import Lightbox from "../components/lightbox.astro";
             />
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-neutral-800 dark:text-white mb-2">Animated Landing Pages with CTAs</h3>
+            <h3 class="text-xl font-bold text-neutral-800 dark:text-white mb-2">AIPowerLeads - Animated Landing Pages with CTAs</h3>
             <p class="text-neutral-600 dark:text-neutral-400">
               Designing high-converting landing pages with engaging animations and strategic call-to-action elements.
               Creating visually stunning experiences that guide visitors through the customer journey and maximize conversion rates.
@@ -902,7 +909,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- Websites Build With Section -->
       <div class="mb-20">
-        <h2 class="text-2xl font-bold text-neutral-800 dark:text-white mb-4">I use the most modern technologies</h2>
+        <h2 class="text-2xl font-bold text-neutral-800 dark:text-white mb-4">...and I use the most modern technologies</h2>
         
         <div class="flex flex-wrap gap-3">
           <!-- Astro -->
@@ -978,7 +985,7 @@ import Lightbox from "../components/lightbox.astro";
         <div class="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 rounded-2xl overflow-hidden">
           <div class="flex flex-col md:flex-row items-center">
             <div class="w-full md:w-1/2 p-8 md:p-12">
-              <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-4">Let's chef something up</h2>
+              <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-4">Let's chef something up!</h2>
               <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
                 Ready to elevate your marketing strategy? Let's discuss how my expertise can help your business grow.
               </p>
@@ -1048,79 +1055,134 @@ import Lightbox from "../components/lightbox.astro";
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
-    const sections = document.querySelectorAll('div[id]');
+    // Table of Contents highlight on scroll
+    const sections = document.querySelectorAll('[id][class*="scroll-mt"]');
     const tocLinks = document.querySelectorAll('.toc-link');
     
-    // Function to update active link
-    function updateActiveLink() {
+    const observerOptions = {
+      // Adjust rootMargin to better detect sections at the bottom of the page
+      rootMargin: '-100px 0px -50% 0px',
+      threshold: 0
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+        
+        if (entry.isIntersecting) {
+          // Remove active class from all links
+          tocLinks.forEach(link => link.classList.remove('active'));
+          
+          // Add active class to current link
+          if (tocLink) {
+            tocLink.classList.add('active');
+            
+            // Also update the label visibility
+            const label = tocLink.querySelector('.toc-label');
+            if (label) {
+              // First hide all labels
+              document.querySelectorAll('.toc-label').forEach(l => {
+                l.classList.add('opacity-0');
+                l.classList.remove('opacity-100');
+              });
+              
+              // Then show this label
+              label.classList.remove('opacity-0');
+              label.classList.add('opacity-100');
+            }
+          }
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all sections
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Special handling for the last section (Contact)
+    const handleLastSection = () => {
+      const lastSection = document.getElementById('contact');
+      const contactLink = document.querySelector('.toc-link[href="#contact"]');
+      
+      if (lastSection && contactLink) {
+        // When we're near the bottom of the page, activate the contact link
+        window.addEventListener('scroll', () => {
+          const scrollPosition = window.scrollY + window.innerHeight;
+          const documentHeight = document.documentElement.scrollHeight;
+          
+          // If we're within 100px of the bottom of the page
+          if (documentHeight - scrollPosition < 100) {
+            // Remove active class from all links
+            tocLinks.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to contact link
+            contactLink.classList.add('active');
+            
+            // Update label visibility
+            const label = contactLink.querySelector('.toc-label');
+            if (label) {
+              document.querySelectorAll('.toc-label').forEach(l => {
+                l.classList.add('opacity-0');
+                l.classList.remove('opacity-100');
+              });
+              
+              label.classList.remove('opacity-0');
+              label.classList.add('opacity-100');
+            }
+          }
+        });
+      }
+    };
+    
+    handleLastSection();
+    
+    // Initial check for active section on page load
+    const checkInitialActive = () => {
       let found = false;
       
-      // Check which section is in view
-      for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
+      // Check which section is currently in view
+      sections.forEach(section => {
         const rect = section.getBoundingClientRect();
+        const id = section.getAttribute('id');
+        const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
         
-        // If the section is in the viewport (with some offset)
-        if (rect.top <= 150 && rect.bottom >= 150) {
-          const id = section.getAttribute('id');
-          const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-          
-          if (activeLink) {
-            // Remove active class from all links
-            tocLinks.forEach(function(link) {
-              link.classList.remove('active');
-              const label = link.querySelector('.toc-label');
-              if (label) {
-                label.classList.add('opacity-0');
-                label.classList.remove('opacity-100');
-              }
-            });
+        if (rect.top <= 100 && rect.bottom >= 100 && !found) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          if (tocLink) {
+            tocLink.classList.add('active');
             
-            // Add active class to current link
-            activeLink.classList.add('active');
-            const label = activeLink.querySelector('.toc-label');
+            // Update label visibility
+            const label = tocLink.querySelector('.toc-label');
             if (label) {
+              document.querySelectorAll('.toc-label').forEach(l => {
+                l.classList.add('opacity-0');
+                l.classList.remove('opacity-100');
+              });
+              
               label.classList.remove('opacity-0');
               label.classList.add('opacity-100');
             }
             
             found = true;
-            break;
           }
         }
-      }
+      });
       
-      // If no section is in view, activate the first link
-      if (!found && sections.length > 0 && tocLinks.length > 0) {
-        const firstLink = tocLinks[0];
-        firstLink.classList.add('active');
-        const label = firstLink.querySelector('.toc-label');
+      // If no section is active, highlight the first one
+      if (!found && tocLinks.length > 0) {
+        tocLinks[0].classList.add('active');
+        const label = tocLinks[0].querySelector('.toc-label');
         if (label) {
           label.classList.remove('opacity-0');
           label.classList.add('opacity-100');
         }
       }
-    }
+    };
     
-    // Update on scroll
-    window.addEventListener('scroll', updateActiveLink);
+    checkInitialActive();
     
-    // Initial update
-    updateActiveLink();
-    
-    // Handle click on TOC links
-    tocLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        // Let the default behavior happen (scroll to section)
-        // But also update the active state
-        setTimeout(updateActiveLink, 100);
-      });
-    });
-  });
-</script>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
     // Skills tabs functionality
     const skillsTabs = document.querySelectorAll('.skills-tab');
     const skillsContents = document.querySelectorAll('.skills-content');
