@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="none"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="650" cy="100" r="40" fill="#f0f0f0" class="dark:fill-neutral-800" />
+  <circle cx="700" cy="180" r="25" fill="#f0f0f0" class="dark:fill-neutral-800" />
+  <circle cx="600" cy="150" r="15" fill="#f0f0f0" class="dark:fill-neutral-800" />
+  
+  <!-- Laptop -->
+  <rect x="250" y="300" width="300" height="200" rx="10" fill="#333" class="dark:fill-neutral-700" />
+  <rect x="260" y="310" width="280" height="170" rx="5" fill="#f5f5f5" class="dark:fill-neutral-800" />
+  <rect x="200" y="500" width="400" height="20" rx="10" fill="#333" class="dark:fill-neutral-700" />
+  
+  <!-- Code on screen -->
+  <line x1="280" y1="330" x2="380" y2="330" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="350" x2="500" y2="350" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="370" x2="450" y2="370" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="390" x2="520" y2="390" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="410" x2="400" y2="410" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="430" x2="480" y2="430" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  <line x1="280" y1="450" x2="350" y2="450" stroke="#333" stroke-width="2" class="dark:stroke-neutral-400" />
+  
+  <!-- Person 1 (left) -->
+  <circle cx="150" cy="250" r="50" fill="#4a90e2" />
+  <path d="M100 450 C 100 350, 200 350, 200 450" fill="#4a90e2" />
+  <rect x="140" y="450" width="20" height="60" fill="#4a90e2" />
+  <rect x="100" y="450" width="20" height="60" fill="#4a90e2" />
+  
+  <!-- Person 2 (right) -->
+  <circle cx="650" cy="250" r="50" fill="#50c878" />
+  <path d="M600 450 C 600 350, 700 350, 700 450" fill="#50c878" />
+  <rect x="640" y="450" width="20" height="60" fill="#50c878" />
+  <rect x="600" y="450" width="20" height="60" fill="#50c878" />
+  
+  <!-- Connection lines -->
+  <path d="M200 250 Q 400 150 600 250" stroke="#f0f0f0" stroke-width="5" fill="none" stroke-dasharray="10,10" class="dark:stroke-neutral-700" />
+  
+  <!-- Email icon -->
+  <rect x="370" y="180" width="60" height="40" rx="5" fill="#f0f0f0" stroke="#333" stroke-width="2" class="dark:fill-neutral-800 dark:stroke-neutral-600" />
+  <polyline points="370,180 400,200 430,180" fill="none" stroke="#333" stroke-width="2" class="dark:stroke-neutral-600" />
+  
+  <!-- Speech bubbles -->
+  <path d="M220 180 Q 220 160, 240 160 L 300 160 Q 320 160, 320 180 L 320 200 Q 320 220, 300 220 L 240 220 Q 220 220, 220 200 Z" fill="#4a90e2" />
+  <path d="M240 220 L 230 240" fill="#4a90e2" />
+  
+  <path d="M480 180 Q 480 160, 500 160 L 560 160 Q 580 160, 580 180 L 580 200 Q 580 220, 560 220 L 500 220 Q 480 220, 480 200 Z" fill="#50c878" />
+  <path d="M540 220 L 550 240" fill="#50c878" />
+</svg> 

@@ -25,7 +25,7 @@ import Lightbox from "../components/lightbox.astro";
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
           <a href="#skills" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
-            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Skills I've Mastered</span>
+            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">My Skills</span>
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
           <a href="#gallery" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
@@ -48,6 +48,10 @@ import Lightbox from "../components/lightbox.astro";
             <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Campaigns I've Managed</span>
             <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
           </a>
+          <a href="#contact" class="toc-link group flex items-center py-1 text-neutral-400 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white justify-end">
+            <span class="toc-label opacity-0 group-hover:opacity-100 transition-opacity duration-200 mr-2 text-xs">Contact Me</span>
+            <span class="w-5 h-[2px] bg-neutral-300 dark:bg-neutral-600 group-hover:bg-neutral-800 dark:group-hover:bg-white"></span>
+          </a>
         </nav>
       </div>
     </div>
@@ -62,13 +66,41 @@ import Lightbox from "../components/lightbox.astro";
             Hello, I'm Andrew McKenzie.
           </h2>
           <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-            I'm a <span class="font-semibold text-neutral-800 dark:text-neutral-200">certified expert</span> in digital marketing, helping busy people like you be more organized and productive.
+            I specialize in building and leading
+            <span class="font-semibold text-neutral-800 dark:text-neutral-200">high-impact marketing teams and campaigns</span>
+            that drive revenue and brand growth.
           </p>
           <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-            I design and optimize marketing strategies to be clutter-free, so you can <span class="font-semibold text-neutral-800 dark:text-neutral-200">focus on what's important</span> and <span class="font-semibold text-neutral-800 dark:text-neutral-200">get things done</span>.
+            My expertise spans <span class="font-semibold text-neutral-800 dark:text-neutral-200">paid media, conversion optimization, and data-driven decision-making,</span> ensuring businesses maximize their marketing investments.
+            <!-- I design and optimize marketing strategies to be clutter-free, so you can <span class="font-semibold text-neutral-800 dark:text-neutral-200">focus on what's important</span> and <span class="font-semibold text-neutral-800 dark:text-neutral-200">get things done</span>. -->
           </p>
-          <div class="mt-8">
-            <Button text="Contact Me" link="mailto:seanmac90@gmail.com" />
+
+
+
+
+      <!-- Stats Section -->
+      <div id="stats" class="my-4 py-4 scroll-mt-20">
+        <div class="grid grid-cols-3 gap-8">
+          <!-- Years of Experience -->
+          <div class="text-center">
+            <h3 class="text-3xl font-bold text-neutral-800 dark:text-white mb-2">{new Date().getFullYear() - 2010}+</h3>
+            <p class="text-md font-medium text-neutral-600 dark:text-neutral-400">Years of Experience</p>
+          </div>
+          
+          <!-- Projects Completed -->
+          <div class="text-center">
+            <h3 class="text-3xl font-bold text-neutral-800 dark:text-white mb-2">124+</h3>
+            <p class="text-md font-medium text-neutral-600 dark:text-neutral-400">Projects Completed</p>
+          </div>
+          
+        </div>
+      </div>
+
+
+
+
+          <div class="mt-4">
+            <Button text="Email Me" link="mailto:seanmac90@gmail.com" />
           </div>
         </div>
         
@@ -85,27 +117,10 @@ import Lightbox from "../components/lightbox.astro";
 
 
       
-      <!-- Stats Section -->
-      <div id="stats" class="my-20 py-10 border-t border-b border-neutral-200 dark:border-neutral-700 scroll-mt-20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Years of Experience -->
-          <div class="text-center">
-            <h3 class="text-3xl font-bold text-neutral-800 dark:text-white mb-2">14+</h3>
-            <p class="text-md font-medium text-neutral-600 dark:text-neutral-400">Years of Experience</p>
-          </div>
-          
-          <!-- Projects Completed -->
-          <div class="text-center">
-            <h3 class="text-3xl font-bold text-neutral-800 dark:text-white mb-2">124+</h3>
-            <p class="text-md font-medium text-neutral-600 dark:text-neutral-400">Projects Completed</p>
-          </div>
-          
-        </div>
-      </div>
 
       <!-- Skills Section -->
       <div id="skills" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Skills I've Mastered</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I've developed skills in multiple domains</h2>
         
         <!-- Skills Tabs -->
         <div class="mb-8 border-b border-neutral-200 dark:border-neutral-700 overflow-x-auto pb-1 hide-scrollbar">
@@ -622,7 +637,7 @@ import Lightbox from "../components/lightbox.astro";
 
 
       <!-- Portfolio Header -->
-      <h1 class="text-4xl font-bold text-neutral-800 dark:text-white mb-8">AI Automation Specialist</h1>
+      <h1 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I create AI automations</h1>
       
       <!-- Audio Visualizer -->
       <AudioVisualizer 
@@ -635,10 +650,10 @@ import Lightbox from "../components/lightbox.astro";
 
 
       <!-- Brands I worked with Section -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-neutral-800 dark:text-white mb-6">Platforms I've Run Campaigns On</h2>
+      <div class=" my-48">
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-6">I market on multiple digital platforms</h2>
         
-        <div class="py-6 border-t border-b border-neutral-200 dark:border-neutral-700">
+        <div class="py-6 ">
           <div class="grid grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
             <!-- Google -->
             <div class="w-16 h-10 flex items-center justify-center">
@@ -684,7 +699,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- Marketing Analytics Gallery Section -->
       <div id="campaigns" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Campaigns I've Managed</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I build and manage campaigns with both small and large budgets</h2>
         <p class="text-neutral-600 dark:text-neutral-400 mb-8">
           Showcasing real-world marketing analytics dashboards and results from various campaigns I've managed.
         </p>
@@ -779,7 +794,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- TikTok Skills Section -->
       <div id="tiktok-skills" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">TikTok Videos I've Created</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I create video slideshows for your TikTok ads</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
@@ -808,7 +823,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- Web App Skills Section -->
       <div id="webapp-skills" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Web Apps I've Developed</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I develop modern web apps that help you manage your business</h2>
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg">
           <div class="relative aspect-video w-full overflow-hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 gif-loading-placeholder">
@@ -837,7 +852,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- Landing Page Skills Section -->
       <div id="landing-page-skills" class="mb-20 scroll-mt-20">
-        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Landing Pages I've Created</h2>
+        <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">I get your landing pages and websites designed in a jiffy - and they convert!</h2>
         
         <!-- Sunovio Solar Landing Page -->
         <div class="bg-white dark:bg-neutral-900 rounded-xl overflow-hidden shadow-lg mb-8">
@@ -887,7 +902,7 @@ import Lightbox from "../components/lightbox.astro";
 
       <!-- Websites Build With Section -->
       <div class="mb-20">
-        <h2 class="text-2xl font-bold text-neutral-800 dark:text-white mb-4">Websites I've Created With</h2>
+        <h2 class="text-2xl font-bold text-neutral-800 dark:text-white mb-4">I use the most modern technologies</h2>
         
         <div class="flex flex-wrap gap-3">
           <!-- Astro -->
@@ -957,6 +972,38 @@ import Lightbox from "../components/lightbox.astro";
         <!-- <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-8">Writings</h2> -->
         <!-- <Writings /> -->
       <!-- </div> -->
+
+      <!-- Call to Action Section -->
+      <div id="contact" class="my-24 scroll-mt-20">
+        <div class="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 rounded-2xl overflow-hidden shadow-lg">
+          <div class="flex flex-col md:flex-row items-center">
+            <div class="w-full md:w-1/2 p-8 md:p-12">
+              <h2 class="text-3xl font-bold text-neutral-800 dark:text-white mb-4">Let's chef something up</h2>
+              <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
+                Ready to elevate your marketing strategy? Let's discuss how my expertise can help your business grow.
+              </p>
+              <a 
+                href="mailto:seanmac90@gmail.com" target="_blank" 
+                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-neutral-800 hover:bg-neutral-700 dark:bg-neutral-700 dark:hover:bg-neutral-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500 transition-colors duration-200"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                Send me an email
+              </a>
+            </div>
+            <div class="w-full md:w-1/4">
+              <img 
+                src="/assets/images/chef.gif" 
+                alt="Let's collaborate" 
+                class="w-full h-auto object-cover rounded-full"
+                onerror="this.onerror=null; this.src='/assets/images/collaboration.png';"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </div>
